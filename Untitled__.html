@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dépôt Rapide Mobiflous</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://x2partners.net/skins/x2partners/css/images/logo.svg">
+    <style>
+        /* General Reset */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* BetX2 Colors and Theme */
+        
+         :root {
+            --brand-color-1: #17A926;
+            /* BetX2 primary green */
+            --brand-color-2: #145B18;
+            /* Darker green for hover */
+            --brand-color-text: #FFFFFF;
+            /* Text color white */
+            --background-color-1: #444444;
+            /* Dark background */
+            --background-color-2: #232323;
+            /* Secondary dark background */
+            --background-color-3: #333333;
+            /* Card background */
+            --background-color-4: #494949;
+            /* Input background */
+            --background-color-5: #565656;
+            /* Hover background */
+            --text-color-1: #FFFFFF;
+            /* Primary text color */
+            --text-color-2: #E8E8E8;
+            /* Lighter text color */
+            --text-color-3: #BFBFBF;
+            /* Secondary text color */
+            --input-background: #494949;
+            /* Input background */
+            --success-color: #4ADE80;
+            /* Success color for svg */
+        }
+        
+        body {
+            font-family: 'Noto sans', sans-serif;
+            background-color: var(--background-color-2);
+            color: var(--text-color-1);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--background-color-3);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 255, 255, 0.3);
+            text-align: center;
+            position: relative;
+            animation: slideDown 1s ease-in-out;
+            margin-bottom: 5rem;
+        }
+        
+        .header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--brand-color-1);
+            margin-bottom: 1rem;
+        }
+        
+        .header h1:nth-of-type(1) {
+            margin-bottom: 0 !important;
+        }
+        
+        .header h1:nth-of-type(2) {
+            margin-top: 0 !important;
+            /* Optional if you need to remove extra space at the top */
+        }
+        
+        .header p {
+            font-size: 1rem;
+            color: var(--text-color-2);
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .select-group,
+        .input-field {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .select-group:focus-within .select-label {
+            color: var(--brand-color-1);
+            /* Color when focused */
+        }
+        
+        .select-label {
+            font-size: 1rem;
+            color: var(--text-color-3);
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s ease;
+        }
+        
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type="number"] {
+            -moz-appearance: textfield;
+            /
+        }
+        
+        select,
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            background-color: var(--background-color-4);
+            border-radius: 10px;
+            color: var(--text-color-1);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        select:focus,
+        input:focus {
+            outline: none;
+            background-color: var(--background-color-5);
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.2);
+            color: rgba(0, 255, 255, 0.6);
+        }
+        
+        select:hover {
+            background-color: var(--background-color-5);
+        }
+        
+        input[type="number"]:focus+.select-label,
+        select:focus+.select-label,
+        input[type="text"]:focus+.select-label {
+            color: var(--brand-color-1);
+            /* Change to the desired color */
+        }
+        
+        .dial-button {
+            display: inline-block;
+            width: auto;
+            padding: 1rem 2.5rem;
+            background-color: var(--brand-color-1);
+            color: var(--brand-color-2);
+            border-radius: 9px;
+            border: solid 3px var(--brand-color-2);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 1.5rem auto 0 auto;
+            transition: all 0.3s ease;
+        }
+        
+        .dial-button:hover {
+            background-color: var(--brand-color-2);
+            color: var(--brand-color-1);
+            border-color: var(--brand-color-1);
+            transform: translateY(-3px);
+        }
+        
+        .dial-button.disabled {
+            background-color: #4B5563;
+            border: none;
+            color: var(--brand-color-text);
+            cursor: not-allowed;
+        }
+        
+        .info-card {
+            background-color: var(--background-color-5);
+            padding: 1rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            color: var(--text-color-3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* .info-card ul {
+            padding-left: 1.5rem;
+        }
+        
+        .info-card li {
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .info-card li::before {
+            content: '•';
+            position: absolute;
+            left: -1rem;
+            color: var(--brand-color-1);
+        } */
+        
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .info-card li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .info-card li::before {
+            content: '✔';
+            position: absolute;
+            left: 0;
+            color: var(--brand-color-1);
+            font-size: 1.2rem;
+        }
+        
+        .logo-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .logo-container img {
+            width: 50px;
+            height: auto;
+            animation: moveRight 8s infinite linear;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .livechat-button-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .livechat-button {
+            background-color: var(--brand-color-1);
+            color: var(--brand-color-text);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+        
+        .livechat-button:hover {
+            background-color: var(--brand-color-2);
+        }
+        /* Logo Carousel Styles */
+        
+        .carousel {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+        
+        .slides img {
+            width: 100%;
+            /* height: 100%;
+            line-height: normal; */
+            display: block;
+        }
+        
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        
+        .prev,
+        .next {
+            background-color: rgba(0, 0, 0, 0.274);
+            color: var(--brand-color-2);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 48px;
+        }
+        
+        @keyframes moveRight {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(100px);
+            }
+        }
+        /* Animation for slideDown */
+        
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Responsive Adjustments */
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .dial-button {
+                font-size: 1.1rem;
+                padding: 0.8rem 2rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .container {
+                max-width: 520px;
+            }
+            .header h1 {
+                font-size: 2.8rem;
+            }
+            .dial-button {
+                font-size: 1.4rem;
+                padding: 1.2rem 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1><span style="font-size: 24px;">Dépôt Rapide Mobiflous </span></h1>
+            <h1><span style="font-size: 24px;">إيداع سريع عبر موبيفلوس</span></h1>
+            <p>Quick access to recharge services</p>
+        </header>
+        <div class="dial-card">
+            <div class="select-group">
+                <label for="amountInput" class="select-label" id="input-label">Amount: <span id="amountDisplay">10</span> TND</label>
+                <input type="number" id="amountInput" class="amount-select" min="10" max="100" step="1" onchange="updateUssdCode()" placeholder="10...100" />
+                <span id="amountError" class="error-message" style="display: none;">Amount must be between 10 and 100 TND!</span>
+            </div>
+            <!-- value="10" !-->
+            <div class="select-group">
+                <label for="operatorSelect" class="select-label" id="select-label">Quel est votre opérateur ? | ما هو مشغل شبكة هاتفك ؟</label>
+                <select id="operatorSelect" class="operator-select" onchange="updateUssdCode()">
+                    <option value="" disabled selected>Choose operator</option>
+                    <option value="ooredoo">🔴 Ooredoo | أوريدو</option>
+                    <option value="orange">🟧 Orange | أورنج</option>
+                    <option value="telecom">🔵 Tunisie Telecom | اتصالات تونس</option>
+                </select>
+            </div>
+            <div id="codeInput" class="input-field select-group" style="display: none;">
+                <label for="code" class="select-label">Code secret e-Dinar | الرمز السري لـ e-Dinar </label>
+                <input type="text" id="code" placeholder="Enter votre code" onchange="updateUssdCode()" />
+            </div>
+            <a href="tel:" id="dialButton" class="dial-button disabled">Envoyer | إرسال</a></div>
+        <!-- Logo section -->
+        <div class="logo-container"></div>
+        <div class="info-card">
+            <h2><span style="color: #17a926;">Comment utiliser <br> كيفية الاستخدام</span><br /><br /></h2>
+            <ul>
+                <li>Choisissez le montant que vous allez envoyer <br> اختر المبلغ الذي سترسله</li>
+                <li>Choisissez votre opérateur <br> اختر مشغل الخدمة</li>
+                <li>Pour Ooredoo, entrez le code secret de la carte <br> بالنسبة إلى أوريدو، أدخل الرمز السري للبطاقة</li>
+                <li>Cliquez sur le bouton Envoyer <br> اضغط على زر إرسال</li>
+                <li>Appelez avec votre numéro et entrez le code, puis confirmez <br> اتصل برقمك وأدخل الرمز ثم أكد</li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="carousel">
+        <div class="slides" id="slides">
+            <img src="https://betx2.com/img/logos/MobileLogo.svg?v=2024-02-03T13:52:39.853" alt="Image 1">
+            <img src="https://assets.clubx2.com/sites/betx2/logo-clubx2.svg" alt="Image 2">
+            <img src="https://x2partners.net/skins/x2partners/css/images/logo.svg" alt="Image 3">
+        </div>
+        <div class="carousel-buttons">
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </div>
+
+
+    <!-- LiveChat Button -->
+    <div class="livechat-button-container">
+        <button id="liveChatButton" class="livechat-button">💬</button>
+    </div>
+
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.getElementById('slides');
+        const totalSlides = slides.children.length;
+
+        function moveSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(${-currentSlide * 100}%)`;
+        }
+
+        // Auto-slide every 3 seconds
+        setInterval(() => {
+            moveSlide(1); // Move to the next slide automatically
+        }, 3000); // 3000 milliseconds = 3 seconds
+    </script>
+
+    <script>
+        const ussdCodes = {
+            ooredoo: {
+                prefix: '*112*',
+                middle: '*6*1*54048136*',
+                suffix: '%23'
+            },
+            orange: {
+                prefix: '*119*3*1*54048136*',
+                suffix: '*7%23'
+            },
+            telecom: {
+                prefix: '*104*3*1*54048136*',
+                suffix: '*1%23'
+            }
+        };
+
+        function updateUssdCode() {
+            const amountInput = document.getElementById('amountInput');
+            const amountError = document.getElementById('amountError'); // New error message element
+            let amount = parseInt(amountInput.value);
+            const operator = document.getElementById('operatorSelect').value;
+            const codeInput = document.getElementById('codeInput');
+            const dialButton = document.getElementById('dialButton');
+            const code = document.getElementById('code').value;
+
+            // Initialize error message
+            amountError.style.display = 'none'; // Hide error message initially
+
+            // Limit amount between 10 and 100
+            if (amount > 100) {
+                amountInput.value = 100; // Set input value to max
+                amount = 100;
+                amountError.style.display = 'block'; // Show error message
+            } else if (amount < 10) {
+                amountInput.value = 10; // Set input value to min
+                amount = 10;
+                amountError.style.display = 'block'; // Show error message
+            } else {
+                amountError.style.display = 'none'; // Hide error message if valid
+            }
+
+            // Update the displayed amount value
+            document.getElementById('amountDisplay').textContent = amount;
+
+            // Show/hide code input based on operator selection
+            if (operator === 'ooredoo') {
+                codeInput.style.display = 'block';
+            } else {
+                codeInput.style.display = 'none';
+            }
+
+            // Update dial button
+            if (amount && operator) {
+                if (operator === 'ooredoo' && !code) {
+                    dialButton.classList.add('disabled');
+                    dialButton.style.opacity = '0.7';
+                    return;
+                }
+
+                const operatorCode = ussdCodes[operator];
+                let ussdCode;
+                const finalAmount = amount + '000'; // Add '000' to the amount
+
+                if (operator === 'ooredoo') {
+                    ussdCode = `${operatorCode.prefix}${code}${operatorCode.middle}${finalAmount}${operatorCode.suffix}`;
+                } else {
+                    ussdCode = `${operatorCode.prefix}${finalAmount}${operatorCode.suffix}`;
+                }
+
+                dialButton.href = `tel:${ussdCode}`;
+                dialButton.textContent = `Envoyer ${amount} TND | إرسال ${amount} دينار`;
+                dialButton.classList.remove('disabled');
+                dialButton.style.opacity = '1';
+            } else {
+                dialButton.href = 'tel:';
+                dialButton.textContent = 'Envoyer | إرسال';
+                dialButton.classList.add('disabled');
+                dialButton.style.opacity = '0.7';
+            }
+        }
+
+
+        // Initialize button state
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUssdCode();
+        });
+    </script>
+    <script>
+        // Disable Right-Click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable Specific Keyboard Shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Disable F12 (DevTools)
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+
+            // Disable Ctrl+Shift+I (DevTools), Ctrl+U (View Source), Ctrl+Shift+C (Inspect Element)
+            if (e.ctrlKey && (e.shiftKey && (e.key === 'I' || e.key === 'C') || e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
+        // Disable Inspect Element via right-click or keyboard
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C')) || e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+
+        // Hide code in input fields
+        var inputs = document.querySelectorAll('input[type="text"], input[type="password"], input[type="email"], input[type="search"]');
+        inputs.forEach(function(input) {
+            input.setAttribute('autocomplete', 'off');
+            input.setAttribute('readonly', true); // Makes the input read-only
+            input.addEventListener('focus', function() {
+                input.removeAttribute('readonly'); // Make it editable on focus
+            });
+            input.addEventListener('blur', function() {
+                input.setAttribute('readonly', true); // Make it read-only again on blur
+            });
+        });
+
+        // Additional layer to prevent access to the console
+        setInterval(function() {
+            (function() {
+                var element = new Image();
+                Object.defineProperty(element, 'id', {
+                    get: function() {
+                        throw new Error("Inspect element is disabled.");
+                    }
+                });
+                console.log(element);
+            })();
+        }, 1000);
+    </script>
+    <!-- Start of LiveChat (www.livechat.com) code -->
+    <script>
+        function initializeLiveChat() {
+            if (window.LiveChatWidget) {
+                // Open LiveChat when the button is clicked
+                document.getElementById('liveChatButton').addEventListener('click', function() {
+                    window.LiveChatWidget.open();
+                });
+            } else {
+                alert("LiveChatWidget is not defined.");
+            }
+        }
+
+        window.__lc = window.__lc || {};
+        window.__lc.license = 15545109;
+        window.__lc.integration_name = "manual_channels";
+        window.__lc.product_name = "livechat";;
+        (function(n, t, c) {
+            function i(n) {
+                return e._h ? e._h.apply(null, n) : e._q.push(n)
+            }
+            var e = {
+                _q: [],
+                _h: null,
+                _v: "2.0",
+                on: function() {
+                    i(["on", c.call(arguments)])
+                },
+                once: function() {
+                    i(["once", c.call(arguments)])
+                },
+                off: function() {
+                    i(["off", c.call(arguments)])
+                },
+                get: function() {
+                    if (!e._h) throw new Error("[LiveChatWidget] You can't use getters before load.");
+                    return i(["get", c.call(arguments)])
+                },
+                call: function() {
+                    i(["call", c.call(arguments)])
+                },
+                init: function() {
+                    var n = t.createElement("script");
+                    n.async = !0, n.type = "text/javascript", n.src = "https://cdn.livechatinc.com/tracking.js", t.head.appendChild(n)
+                }
+            };
+            !n.__lc.asyncInit && e.init(), n.LiveChatWidget = n.LiveChatWidget || e
+        }(window, document, [].slice))
+    </script>
+    <noscript><a href="https://direct.lc.chat/15545109" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+    <!-- End of LiveChat code -->
+
+</body>
+
+</html>
